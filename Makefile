@@ -55,14 +55,14 @@ BBLAYERS ?= \
 
 CONFFILES = \
 	$(TOPDIR)/env.source \
-	$(TOPDIR)/conf/openpli.conf \
+	$(TOPDIR)/conf/rpi4.conf \
 	$(TOPDIR)/conf/bblayers.conf \
 	$(TOPDIR)/conf/local.conf \
 	$(TOPDIR)/conf/site.conf
 
 CONFDEPS = \
 	$(DEPDIR)/.env.source.$(BITBAKE_ENV_HASH) \
-	$(DEPDIR)/.openpli.conf.$(OPENPLI_CONF_HASH) \
+	$(DEPDIR)/.rpi4.conf.$(OPENPLI_CONF_HASH) \
 	$(DEPDIR)/.bblayers.conf.$(BBLAYERS_CONF_HASH) \
 	$(DEPDIR)/.local.conf.$(LOCAL_CONF_HASH)
 
@@ -148,7 +148,7 @@ OPENPLI_CONF_HASH := $(call hash, \
 	'TMPDIR = "$(TMPDIR)"' \
 	)
 
-$(TOPDIR)/conf/openpli.conf: $(DEPDIR)/.openpli.conf.$(OPENPLI_CONF_HASH)
+$(TOPDIR)/conf/rpi4.conf: $(DEPDIR)/.rpi4.conf.$(OPENPLI_CONF_HASH)
 	@echo 'Generating $@'
 	@test -d $(@D) || mkdir -p $(@D)
 	@echo 'SSTATE_DIR = "$(SSTATE_DIR)"' >> $@
@@ -170,7 +170,7 @@ $(TOPDIR)/conf/local.conf: $(DEPDIR)/.local.conf.$(LOCAL_CONF_HASH)
 	@echo 'Generating $@'
 	@test -d $(@D) || mkdir -p $(@D)
 	@echo 'TOPDIR = "$(TOPDIR)"' > $@
-	@echo 'require $(TOPDIR)/conf/openpli.conf' >> $@
+	@echo 'require $(TOPDIR)/conf/rpi4.conf' >> $@
 
 $(TOPDIR)/conf/site.conf: $(CURDIR)/site.conf
 	@ln -s ../../site.conf $@
